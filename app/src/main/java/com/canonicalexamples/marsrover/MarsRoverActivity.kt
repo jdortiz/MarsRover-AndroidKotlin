@@ -1,23 +1,27 @@
 package com.canonicalexamples.marsrover
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.canonicalexamples.marsrover.model.Rover
 
 import kotlinx.android.synthetic.main.activity_mars_rover.*
+import kotlinx.android.synthetic.main.content_mars_rover.*
 
 class MarsRoverActivity : AppCompatActivity() {
+
+    private val rover = Rover(x = 0, y = 0, direction = 'N')
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mars_rover)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        moveRoverButton.setOnClickListener { _ ->
+            val commands = commandsEditText.text.toString()
+            rover.execute(commands = commands)
+            positionTextView.text = rover.toString()
         }
     }
 
