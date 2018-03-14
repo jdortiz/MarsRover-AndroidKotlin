@@ -48,8 +48,27 @@ class RoverTest {
 
     @Test
     fun oneRightSetsDirectionToEast() {
-        sut.execute(commands = "R")
+        executeAndVerifyDirection(commands = "R", expectedDirection = 'E')
+    }
 
-        assertEquals('E', sut.direction)
+    @Test
+    fun twoRightSetsDirectionToSouth() {
+        executeAndVerifyDirection(commands = "RR", expectedDirection = 'S')
+    }
+
+    @Test
+    fun threeRightSetsDirectionToWest() {
+        executeAndVerifyDirection(commands = "RRR", expectedDirection = 'W')
+    }
+
+    @Test
+    fun fourRightSetsDirectionToNorth() {
+        executeAndVerifyDirection(commands = "RRRR", expectedDirection = 'N')
+    }
+
+    private fun executeAndVerifyDirection(commands: String, expectedDirection: Char) {
+        sut.execute(commands = commands)
+
+        assertEquals(expectedDirection, sut.direction)
     }
 }
